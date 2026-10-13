@@ -1,0 +1,47 @@
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Policy;
+    using System.Text;
+    using System.Threading.Tasks;
+    namespace Program4
+    {
+    class Program
+    {
+        static void Main()
+        {
+
+            const int rows = 5;
+            const int cols = 5;
+            var rng = new Random();
+
+            // 0 = вода, 1 = суша
+            int[,] field = new int[rows, cols];
+
+            // Заполняем поле: случайно делаем клетки сушей (1) или водой (0)
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = 0; c < cols; c++)
+                {
+                    field[r, c] = rng.Next(2); // 0 или 1
+                }
+            }
+
+            int treasureR = -1;
+            int treasureC = -1;
+
+            // Ищем случайную сухопутную клетку (со значением 1)
+            do
+            {
+                treasureR = rng.Next(rows);
+                treasureC = rng.Next(cols);
+            } while (field[treasureR, treasureC] != 1);
+
+            // Присваиваем ценность клада
+            const int treasureValue = 1000;
+            field[treasureR, treasureC] = treasureValue;
+
+            Console.WriteLine($"Клад спрятан в клетке [{treasureR}, {treasureC}], ценность: {treasureValue} пиастров.");
+        }
+    }
+}
